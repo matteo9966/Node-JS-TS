@@ -11,6 +11,10 @@ Check out the course:
 
 In this moment I'm working on the first project
 
--Task Manager (without mongoose)
+- Task Manager 
+ completed,
+ - added mocha tests for the controllers
+ - use typescript
+ - used node-json-db instead of MongoDB
 
 
