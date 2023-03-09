@@ -3,6 +3,7 @@ import { validateProduct } from "../models/product.model";
 import { asyncWrap } from "../utils/async-wrapper";
 import { ZodError } from "zod";
 import httperrors from "http-errors";
+
 export const addProduct = asyncWrap(async (req, res, next) => {
   const product = req.body;
   try {
