@@ -46,7 +46,8 @@ const deleteTask =m_wrapper(async (req,res,next)=>{
 })
 
 const updateTask = m_wrapper(async (req,res,next)=>{
-    const task = req.body as ITask;
+    const task = req?.body as ITask;
+    console.log(task)
     if(!task){
         throw httpErrors.BadRequest('body should contain task object');
     }

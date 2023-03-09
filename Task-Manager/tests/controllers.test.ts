@@ -1,11 +1,16 @@
 //qui vanno tutti i test che devo fare usando sinon e mocha
-import { expect } from "chai";
+// import { expect } from "chai";
+import chai from "chai";
 import sinon, { spy } from "sinon";
 import { createTask, deleteTask, getAllTasks, getTask, updateTask } from "../controllers/tasks";
 import express from "express";
 import { Task } from "../db/connect";
 import _ from 'lodash';
+import httperrors from 'http-errors';
+import chaiaspromised from 'chai-as-promised'
 
+const expect = chai.expect
+chai.use(chaiaspromised);
 
 let mockTasks = [
   {
@@ -199,6 +204,15 @@ describe('update task',function(){
 
 
     })
-    it.skip('should throw if body has no object',async function(){})
-    it.skip('should throw if task in body has no id',async function(){})
+
+
+    it('should not call res.json if has error',async function(){
+      const nextStub = sinon.stub()
+      const jsonStub = sinon.stub();
+      res.json=jsonStub
+      await updateTask({} as express.Request,res,nextStub);
+      sinon.assert.notCalled(<sinon.SinonStub>jsonStub)
+      
+    })
+
 })
