@@ -7,9 +7,10 @@
     "start": "node server.js",
     "clear": "node ./testing-utils/delete-files.js ./log.txt ./test-json-database.json",
     "start:tm": " tsnd --respawn --debug --files ./Task-Manager/app.ts --watch ./Task-Manager/**/*.ts",
-    "start:test": "SET NODE_ENV=test && tsnd --respawn --debug --files server.ts --watch **/*.ts",
-    "build": "tsc",
-    "test": "mocha"
+    "test:tm": "mocha -w ./Task-Manager/tests/controllers.test.ts",
+    "start:store": "tsnd --respawn --debug --files ./store-API/app.ts --watch ./store-API/**/.ts",
+    "test:store": "mocha ./store-API/tests",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +35,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "chai-as-promised": "^7.1.1",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
@@ -41,6 +43,8 @@
     "moment": "^2.29.4",
     "node-json-db": "^2.1.4",
     "password-validator": "^5.3.0",
-    "sinon": "^15.0.1"
+    "sinon": "^15.0.1",
+    "zod": "^3.21.4",
+    "zod-error": "^1.5.0"
   }
 }
