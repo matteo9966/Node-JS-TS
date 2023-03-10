@@ -10,10 +10,14 @@ This is the udemy coure:
 Check out the course: 
 [NodeJS](https://www.udemy.com/course/nodejs-tutorial-and-projects-course/)
 
-- Task Manager 
- completed,
- - added mocha tests for the controllers
- - use typescript
- - used node-json-db instead of MongoDB
+- Task Manager (completed ✔️)
+  - added mocha tests for the controllers
+  - use typescript
+  - used node-json-db instead of MongoDB
+ 
+ - store-API (working 🔨)
+   - using zod for runtime schema validation
+   - mocha for testing sinon and chai for testing
+   - node-json-db as a dummy db 
 
 
