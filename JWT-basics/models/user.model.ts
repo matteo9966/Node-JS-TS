@@ -25,3 +25,12 @@ export function parseSignup(user: UserSignupType) {
     return { error: false, data: result.data };
   }
 }
+
+export function parseLogin(user:UserType){
+  const result = safeParse(userSchema, user, errorOptions);
+  if (!result.success) {
+    return { error: true, errormessage: result.error.message };
+  } else {
+    return { error: false, data: result.data };
+  }
+}

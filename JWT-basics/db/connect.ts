@@ -90,7 +90,7 @@ export class Model<T extends { id?: string }> {
   }
 
   //TODO: fix this find method let it return a valid type not any
-  async find<T>(cb: (input: T) => boolean) {
+  async find<T>(cb: (input: T) => boolean):Promise<T|null> {
     try {
       let result = [];
       const data = await this.db.getData("/" + this.path);
@@ -98,7 +98,7 @@ export class Model<T extends { id?: string }> {
         result = _.values(data);
       }
 
-      let objResult = result.find(cb) || null;
+      let objResult:T|null = result.find(cb) || null;
       return objResult;
     } catch (error) {
       console.log(error);
