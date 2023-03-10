@@ -15,9 +15,10 @@ Check out the course:
   - use typescript
   - used node-json-db instead of MongoDB
  
- - store-API (working 🔨)
+ - store-API (completed ✔️)
    - using zod for runtime schema validation
-   - mocha for testing sinon and chai for testing
-   - node-json-db as a dummy db 
-
+   - mocha sinon and chai for testing
+   - node-json-db as a dummy db
+   
+- JWT Basics (working 🔨)
 
