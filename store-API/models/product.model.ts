@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { safeParse, ErrorMessageOptions } from "zod-error";
-import { CustomError } from "../utils/custom-error";
+import {  CustomZodError } from "../utils/custom-error";
 
 const errorparseoptions: ErrorMessageOptions = {
   prefix: `Time: ${new Date().toISOString()}`,
 };
 
-const companies = z.enum(["ikea", "liddy", "caressa", "marcos"], {});
+const companies = z.enum(["ikea", "liddy", "caressa", "marcos"]);
 
 const productSchema = z.object({
   name: z.string().nonempty("product name must be provided"),
@@ -14,16 +14,23 @@ const productSchema = z.object({
     .number()
     .nonnegative({ message: "price should be greater than 0" })
     .refine((data) => !!data, { message: "price is required" }),
-  featured: z.boolean().default(false).optional(),
+  featured: z.boolean().optional(),
   rating: z
     .number()
     .min(0, { message: "min should be 0" })
     .max(5, { message: "max should be 10" })
-    .default(4.5).optional(),
-  createdAt: z.date().default(new Date()).optional(),
+    .optional(),
+  createdAt: z.date().optional(),
   company: companies,
-  id: z.string().default(Math.random().toString(16).slice(2)).optional(),
-});
+  id: z.string().optional(),
+}).transform(obj=>({
+  ...obj,
+     createdAt:obj.createdAt || new Date(),
+     id:obj.id || Math.random().toString(16).slice(2),
+     rating: obj.rating || 4.5,
+     featured:obj.featured || false,
+
+}));
 
 export type ProductType = z.infer<typeof productSchema>;
 
@@ -32,13 +39,13 @@ export type ProductType = z.infer<typeof productSchema>;
  * @param product
  * @returns
  */
-export function validateProduct(product: ProductType) {
+export function validateProduct(product: ProductType):ProductType {
   const result = safeParse(productSchema, product, errorparseoptions); //should add the id to the product
   if (!result.success) {
     const message = result.error.message;
     // console.error(message);
-    throw new CustomError(message);
+    throw new CustomZodError(message);
   } else {
-    return result.data;
+    return productSchema.parse(product);
   }
 }

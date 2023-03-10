@@ -46,7 +46,7 @@ export class Model<T extends { id?: string }> {
     return result;
   }
 
-  async getAll() {
+  async getAll():Promise<T[]> {
     const tasks = await this.db.getData("/" + this.path);
     return _.values(tasks) || [];
   }

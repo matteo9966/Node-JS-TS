@@ -21,5 +21,19 @@ describe("product controller", function () {
       await addProduct(req, res, _.noop);
       sinon.assert.calledWith(<sinon.SinonStub>res.json, { inserted: true });
     });
+
+    it("should return have a status of 400 when passing a bad product", async function () {
+      const req = {} as express.Request;
+      const res = {
+        status: sinon.stub() as express.Response["status"],
+        json: sinon.stub() as express.Response["json"],
+      } as express.Response;
+      await addProduct(req, res, _.noop);
+      sinon.assert.calledWith(<sinon.SinonStub>res.status, 400);
+      sinon.assert.calledWith(
+        <sinon.SinonStub>res.json,
+        sinon.match.hasOwn("inserted", false)
+      );
+    });
   });
 });

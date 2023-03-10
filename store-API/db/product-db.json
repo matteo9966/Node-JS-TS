@@ -8,6 +8,34 @@
       "createdAt": "2023-03-09T16:07:30.529Z",
       "company": "ikea",
       "id": "v9jklid0kr"
+    },
+    
+    "1402768ab9143": {
+      "name": "cabinet",
+      "price": 125,
+      "company": "ikea",
+      "createdAt": "2023-03-10T11:44:01.820Z",
+      "id": "1402768ab9143",
+      "rating": 4.5,
+      "featured": false
+    },
+    "6afd847bc9a8": {
+      "name": "cabinet deluxe",
+      "price": 125,
+      "featured": true,
+      "rating": 5,
+      "company": "ikea",
+      "createdAt": "2023-03-10T11:45:35.459Z",
+      "id": "6afd847bc9a8"
+    },
+    "6b7e49ac52e96": {
+      "name": "pillow",
+      "price": 12,
+      "featured": true,
+      "rating": 2.5,
+      "company": "caressa",
+      "createdAt": "2023-03-10T11:45:59.662Z",
+      "id": "6b7e49ac52e96"
     }
   }
 }
