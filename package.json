@@ -10,6 +10,8 @@
     "test:tm": "mocha -w ./Task-Manager/tests/controllers.test.ts",
     "start:store": "tsnd --respawn --debug --files ./store-API/app.ts --watch ./store-API/**/.ts",
     "test:store": "mocha ./store-API/tests",
+    "start:jwt": "tsnd --respawn --debug --files ./JWT-basics/app.ts --watch ./JWT-basics/**/.ts",
+    "test:jwt": "mocha ./JWT-basics/tests",
     "build": "tsc"
   },
   "keywords": [],
@@ -35,6 +37,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "argon2": "^0.30.3",
     "chai-as-promised": "^7.1.1",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
