@@ -7,38 +7,53 @@ import { UserSignupType } from "../models/user.model";
 //immagina di avere un oggetto
 
 class DBConnection {
-  db: JsonDB;
+  db: JsonDB|undefined;
   constructor(private dbname: string) {
-    this.db = this.initDB();
   }
 
-  private initDB() {
-    const config = new Config(this.dbname, true, false, "/");
-    return new JsonDB(config);
+
+  public initDB(dbname: string) {
+    try {
+      const config = new Config(dbname, true, false, "/");
+      this.db = new JsonDB(config)
+    } catch (error) {
+      throw new Error('unable to initialize database')
+    }
+ 
   }
 
   createModel<T extends { id?: string }>(path: string) {
-    return new Model<T>(this.db, path);
+    return new Model<T>(path, this);
     //questo crea un model con cui posso interagire con il db
   }
 }
 
 export class Model<T extends { id?: string }> {
-  constructor(private db: JsonDB, private path: string) {
+
+  constructor( private path: string,private dbconnection:DBConnection) {
     //the path is what i use to create the piece in the db
   }
 
   async insertOne(item: T) {
+
+    //todo: trasforma tutte le proprietà aggiungendo un decorator alla classe
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
+
     if (!item.id) {
       item.id = Math.random().toString(32).slice(2);
     }
-    await this.db.push("/".concat([this.path, item.id].join("/")), item);
+    await this.dbconnection.db.push("/".concat([this.path, item.id].join("/")), item);
   }
 
   async getOne(id: string): Promise<T | null> {
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
     let result = null;
     try {
-      result = (await this.db.getData(
+      result = (await this.dbconnection.db.getData(
         "/".concat([this.path, id].join("/"))
       )) as T;
     } catch (err) {
@@ -48,14 +63,20 @@ export class Model<T extends { id?: string }> {
   }
 
   async getAll():Promise<T[]> {
-    const tasks = await this.db.getData("/" + this.path);
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
+    const tasks = await this.dbconnection.db.getData("/" + this.path);
     return _.values(tasks) || [];
   }
 
   async deleteOne(id: string) {
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
     let deleted = false;
     try {
-      await this.db.delete("/".concat([this.path, id].join("/")));
+      await this.dbconnection.db.delete("/".concat([this.path, id].join("/")));
       deleted = true;
     } catch (error) {
       deleted = false;
@@ -64,6 +85,9 @@ export class Model<T extends { id?: string }> {
   }
 
   async update(obj: T) {
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
     const id = obj.id;
     //cerchiamo questo obj e
     if (!id) {
@@ -91,9 +115,12 @@ export class Model<T extends { id?: string }> {
 
   //TODO: fix this find method let it return a valid type not any
   async find<T>(cb: (input: T) => boolean):Promise<T|null> {
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
     try {
       let result = [];
-      const data = await this.db.getData("/" + this.path);
+      const data = await this.dbconnection.db.getData("/" + this.path);
       if (typeof data === "object") {
         result = _.values(data);
       }
@@ -107,9 +134,12 @@ export class Model<T extends { id?: string }> {
   }
 
   async findAll<T>(cb: (input: T) => boolean) {
+    if(!this.dbconnection.db){
+      throw new Error('call initDB on dbConnection instance when creating the db')
+    }
     try {
       let result = [];
-      const data = await this.db.getData("/" + this.path);
+      const data = await this.dbconnection.db.getData("/" + this.path);
       if (typeof data === "object") {
         result = _.values(data);
       }
@@ -125,7 +155,7 @@ export class Model<T extends { id?: string }> {
 
 const dbpath = path.join(__dirname, "./product-db");
 
-export const dbConnection = new DBConnection(dbpath);
+export const dbConnection = new DBConnection(dbpath); // questa funzione deve essere chiamata nel main
 
 export const User = dbConnection.createModel<UserSignupType>("user")
 

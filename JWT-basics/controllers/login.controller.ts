@@ -1,4 +1,4 @@
-import * as jwt from "../utils/createJWT";
+import {jwtFns} from "../utils/createJWT";
 import argon2 from 'argon2'
 import express from "express";
 import { parseLogin, UserSignupType } from "../models/user.model";
@@ -17,7 +17,7 @@ export async function loginController(
 
   //ora cerchiamo l'user nel db
 
-  const user = await User.find<UserSignupType>(user=>user.email===parsedUser.data?.username)
+  const user = await User.find<UserSignupType>(user=>user.username===parsedUser.data?.username)
 
   if(!user){
     res.status(401)
@@ -33,7 +33,7 @@ if(!validPassword){
     return
 }
 try {
-    const jsonWebToken = await jwt.createJWT(user);
+    const jsonWebToken = await jwtFns.createJWT(user);
     //set authorization header 
     res.setHeader('Authorization',`bearer ${jsonWebToken}`);
     res.status(201);
@@ -54,5 +54,3 @@ try {
 
   //ok validazione del token
 }
-
-export {jwt}

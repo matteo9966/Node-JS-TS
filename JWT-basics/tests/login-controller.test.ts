@@ -6,7 +6,8 @@ import { UserType } from "../models/user.model";
 import { User } from "../db/connect";
 import argon2 from "argon2";
 import _ from "lodash";
-import { jwt, loginController } from "../controllers/login.controller";
+import {jwtFns} from '../utils/createJWT';
+import {  loginController } from "../controllers/login.controller";
 const expect = chai.expect;
 
 const validUser: UserType = {
@@ -35,7 +36,7 @@ describe("login controller", function () {
   it("should login if user exists in db ", async function () {
     sinon.stub(User, "find").resolves({ password: "digest-of-password" });
     sinon.stub(argon2, "verify").resolves(true);
-    sinon.stub(jwt, "createJWT").resolves("token");
+    sinon.stub(jwtFns, "createJWT").resolves("token");
     req.body = validUser; //user valido
 
     await loginController(req, res, () => {});
@@ -45,3 +46,17 @@ describe("login controller", function () {
     );
   });
 });
+
+
+describe('argon2 tests',function(){
+  const password = "ThisIsASecret!1234"
+  
+  it('should return truthy if password corresponds to hashed password',async function () {
+    const hash = await argon2.hash(password) //this is the hash stored in the db
+
+    const result = await argon2.verify(hash,password) 
+    chai.expect(result).to.be.true
+  })
+
+
+})

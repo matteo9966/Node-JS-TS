@@ -42,4 +42,4 @@ function verifyJWT(token: string) {
   });
 }
 
-export { createJWT, verifyJWT };
+export const jwtFns =  { createJWT, verifyJWT };
