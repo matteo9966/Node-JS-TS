@@ -19,7 +19,7 @@ describe("/user/dashboard", function () {
       });
   });
 
-  it.only("should return a valid user if in database", async function () {
+  it("should return a valid user if in database", async function () {
     expect(token).to.not.be.undefined;
     expect(token).to.not.be.null;
 
@@ -32,4 +32,19 @@ describe("/user/dashboard", function () {
     expect(response.body).to.have.property("email");
     expect(response.body).to.have.property("id");
   });
+
+  it("should return with status code 401 if no jwt token",async function(){
+    const response = await request(app).get("/user/dashboard")
+    expect(response.statusCode).to.be.equal(401)
+
+  })
+  it("should return with status code 401 if no jwt token",async function(){
+    const response = await request(app).get("/user/dashboard")
+    expect(response.statusCode).to.be.equal(401)
+
+  })
+
+
+
+
 });
