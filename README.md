@@ -20,5 +20,10 @@ Check out the course:
    - mocha sinon and chai for testing
    - node-json-db as a dummy db
    
-- JWT Basics (working 🔨)
+- JWT Basics (completed  ✔️)
+   - using zod for runtime schema validation
+   - mocha sinon and chai for testing
+   - added a integration test for the /user/dashboard route
+   - node-json-db as a dummy db
+   - launch.json config for debugging
 
