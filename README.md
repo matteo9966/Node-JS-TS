@@ -22,8 +22,15 @@ Check out the course:
    
 - JWT Basics (completed  ✔️)
    - using zod for runtime schema validation
-   - mocha sinon and chai for testing
+   - mocha sinon and chai for testing and super test for integration testing
    - added a integration test for the /user/dashboard route
    - node-json-db as a dummy db
    - launch.json config for debugging
+ 
+ -Jobs-API (working 🔨)
+  - testing with sinon chai mocha supertest
+  - using zod for runtime validation instead of mongoose schema validation
+  - no mongodb, using a local json-db database
+  - adding swagger documentation
+  
 
