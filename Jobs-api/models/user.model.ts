@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { hashPassword } from "../utils/hashPassword";
 import { safeParseAsync } from "zod-error";
+import { User  as UserModel} from "../db/connect";
 const User = z.object({
   name: z
     .string({
@@ -14,7 +15,8 @@ const User = z.object({
     .min(6, { message: "password min length: 6" })
     .max(30, { message: "password max length :30" })
     .transform(async (password) => await hashPassword(password)),
-});
+  id:z.string().optional()
+})
 
 
 const UserLogin = User.omit({name:true})
@@ -33,7 +35,7 @@ export const userSignupValidator = async function (data: userType) {
 };
 
 export const userLoginValidator = async function(data:userLoginType){
-  const result = await safeParseAsync(User, data, {});
+  const result = await safeParseAsync(UserLogin, data, {});
   if (!result.success) {
     return { error: true, errormessage: result.error.message };
   } else {

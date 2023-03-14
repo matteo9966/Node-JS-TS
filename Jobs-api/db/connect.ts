@@ -1,6 +1,7 @@
 import { JsonDB, Config } from "node-json-db";
 import _ from "lodash";
 import path from "path";
+import { userType } from "../models/user.model";
 
 
 
@@ -11,7 +12,10 @@ class DBConnection {
   constructor(private dbname: string) {
   }
 
-
+/**
+ * 
+ * @param dbname the path to the dbfolder
+ */
   public initDB(dbname: string) {
     try {
       const config = new Config(dbname, true, false, "/");
@@ -157,7 +161,8 @@ const dbpath = path.join(__dirname, "./product-db");
 
 export const dbConnection = new DBConnection(dbpath); // questa funzione deve essere chiamata nel main
 
-// export const User = dbConnection.createModel<UserSignupType>("user")
+export const User = dbConnection.createModel<userType>("user")
+
 
 // export const Product = dbConnection.createModel<ProductType>("product");
 

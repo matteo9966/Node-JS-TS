@@ -14,7 +14,7 @@
     "test:jwt": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./JWT-basics/tests/**/*.test.ts --watch-files **/*.test.ts",
     "initdb:jwt":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&&ts-node JWT-basics/tests/utils/populate-db.ts",
     "start:jobs":"",
-    "test:jobs":"",
+    "test:jobs":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
     "build": "tsc"
   },
   "keywords": [],

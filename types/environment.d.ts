@@ -5,6 +5,7 @@ declare global {
         PORT?: string;
         DB_PATH:string;
         DB_PATH_TEST:string;
+        JOBS_PORT:number;
       }
     }
   }
