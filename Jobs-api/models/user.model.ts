@@ -15,11 +15,12 @@ const User = z.object({
     .min(6, { message: "password min length: 6" })
     .max(30, { message: "password max length :30" })
     .transform(async (password) => await hashPassword(password)),
+  roles:z.enum(['user','admin','manager']).array().default(['user']),
   id:z.string().optional()
 })
 
 
-const UserLogin = User.omit({name:true})
+const UserLogin = User.omit({name:true,roles:true})
 
 
 export type userType = z.infer<typeof User>;

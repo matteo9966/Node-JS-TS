@@ -13,7 +13,7 @@
     "start:jwt": "SET NODE_ENV=development&& tsnd --respawn --debug --files ./JWT-basics/app.ts --watch ./JWT-basics/**/.ts",
     "test:jwt": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./JWT-basics/tests/**/*.test.ts --watch-files **/*.test.ts",
     "initdb:jwt":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&&ts-node JWT-basics/tests/utils/populate-db.ts",
-    "start:jobs":"",
+    "start:jobs":"SET NODE_ENV=testing&& tsnd --respawn --debug --files ./Jobs-api/server.ts --watch ./store-API/**/.ts",
     "test:jobs":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
     "build": "tsc"
   },
