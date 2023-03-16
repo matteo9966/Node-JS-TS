@@ -2,6 +2,7 @@ import { JsonDB, Config } from "node-json-db";
 import _ from "lodash";
 import path from "path";
 import { userType } from "../models/user.model";
+import { JobTypeInput } from "../models/jobs.model";
 
 
 
@@ -100,7 +101,7 @@ export class Model<T extends { id?: string }> {
     try {
       const task = await this.getOne(id);
       if (!task) throw new Error("no task");
-      const taskcopy = structuredClone(task);
+      const taskcopy = JSON.parse(JSON.stringify(task));
       for (let key in task) {
         if (key in obj && key !== "id") {
           task[key] = obj[key];
@@ -163,6 +164,7 @@ export const dbConnection = new DBConnection(dbpath); // questa funzione deve es
 
 export const User = dbConnection.createModel<userType>("user")
 
+export const Job = dbConnection.createModel<JobTypeInput>("job")
 
 // export const Product = dbConnection.createModel<ProductType>("product");
 
