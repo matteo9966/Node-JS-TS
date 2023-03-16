@@ -33,6 +33,7 @@ Check out the course:
   - no mongodb, using a local json-db database
   - adding swagger documentation ( todo )
   - added testing rsa keys
-  - added integration tests for login signup and api/jobs/all endpoints
+  - added integration tests for login signup and api/jobs/all endpoints post api/jobs, patch api/jobs
+  (only missing getAll and delete)
   
 
