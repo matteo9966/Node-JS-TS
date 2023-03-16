@@ -31,6 +31,8 @@ Check out the course:
   - testing with sinon chai mocha supertest
   - using zod for runtime validation instead of mongoose schema validation
   - no mongodb, using a local json-db database
-  - adding swagger documentation
+  - adding swagger documentation ( todo )
+  - added testing rsa keys
+  - added integration tests for login signup and api/jobs/all endpoints
   
 
