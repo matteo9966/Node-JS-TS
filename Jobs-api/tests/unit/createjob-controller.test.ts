@@ -2,7 +2,7 @@ import sinon from "sinon";
 import chai from "chai";
 import express from "express";
 const expect = chai.expect;
-import { createJob } from "../../controllers/jobs/createJob.controller";
+import { createJobController } from "../../controllers/jobs/createJob.controller";
 import { CreatedJob, jobValidators } from "../../models/jobs.model";
 import { Job } from "../../db/connect";
 import e from "express";
@@ -30,7 +30,7 @@ describe("create job controller", function () {
     });
     sinon.stub(Job, "insertOne").resolves();
 
-    await createJob(req, res, _.noop);
+    await createJobController(req, res, _.noop);
     sinon.assert.calledWith(<sinon.SinonSpy>res.status, 200);
     sinon.assert.calledWith(
       <sinon.SinonSpy>res.json,

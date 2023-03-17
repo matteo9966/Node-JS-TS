@@ -1,7 +1,7 @@
 import e from "express";
 import { Job } from "../../db/connect";
 import { JobTypeInput,jobValidators } from "../../models/jobs.model";
-const createJob = async function (
+const createJobController = async function (
   req: e.Request,
   res: e.Response,
   next: e.NextFunction
@@ -33,4 +33,4 @@ const createJob = async function (
 };
 
 
-export {createJob}
+export {createJobController}

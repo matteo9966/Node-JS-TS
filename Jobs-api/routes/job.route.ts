@@ -1,14 +1,22 @@
 import express from "express";
-import { getAllJobs } from "../controllers/jobs";
-import { createJob } from "../controllers/jobs/createJob.controller";
-import { updateJob } from "../controllers/jobs/updateJob.controller";
+import {
+  createJobController,
+  deleteJobController,
+  getAllJobs,
+  getJobController,
+  updateJob,
+} from "../controllers/jobs";
 import { authenticationMiddleware } from "../middleware/authentication.middleware";
 const router = express.Router();
 
 router.route("/all").get(authenticationMiddleware, getAllJobs);
 router
   .route("/")
-  .post(authenticationMiddleware, createJob)
+  .post(authenticationMiddleware, createJobController)
   .patch(authenticationMiddleware, updateJob);
+router
+  .route("/:id")
+  .get(authenticationMiddleware, getJobController)
+  .delete(authenticationMiddleware, deleteJobController);
 
 export { router as jobsrouter };

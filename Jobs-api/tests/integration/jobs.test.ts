@@ -30,7 +30,7 @@ describe("/api/jobs/all", function () {
   it("should return status code 200 if user is authenticated", async function () {
     const response = await agent.get("/api/jobs/all");
 
-    expect(response.status).to.equal(201);
+    expect(response.status).to.equal(200);
   });
 });
 
@@ -116,3 +116,108 @@ describe("/api/jobs/", function () {
     });
   });
 });
+
+describe('/api/jobs/:id',function(){
+  describe('GET /api/jobs/:id',function(){
+    let agent = supertest.agent(app);
+    let user = {};
+    let authorization = "";
+
+    const validUpdate: Partial<JobTypeInput> = {
+      company: "company-test-inserted-UPATE",
+    };
+    const validJob: JobTypeInput = {
+      company: "company-test-inserted",
+      createdBy: "test user",
+      position: "manager",
+      status: "interview",
+      id: `${Math.random().toString(16).slice(2)}`,
+    };
+
+    before(async function () {
+      user = {
+        name: "matteo",
+        email: Math.random().toString(16).slice(2) + "@test.it",
+        password: "Secret1",
+        roles: ["admin"],
+      };
+
+      await agent.post("/api/auth/signup").send(user);
+      const response = await agent.post("/api/auth/login").send(user);
+      authorization =
+        response.headers["authorization"] ||
+        response.headers["Authorization"] ||
+        "";
+
+      const token = authorization.split(" ")[1];
+      agent.set("Authorization", "bearer " + token);
+      await agent.post("/api/jobs/").send(validJob);
+    });
+
+    it("should get an existing job",async function(){
+      const response = await agent.get('/api/jobs/'+validJob.id);
+      expect(response.body).to.have.property("error")
+      expect(response.body).to.have.property("data")
+      expect(response.statusCode).to.equal(200);
+    })
+
+    
+
+  })
+
+
+  describe('DELETE /api/jobs/:id',function(){
+    let agent = supertest.agent(app);
+    let user = {};
+    let authorization = "";
+
+    const validUpdate: Partial<JobTypeInput> = {
+      company: "company-test-inserted-UPATE",
+    };
+    const validJob: JobTypeInput = {
+      company: "company-test-inserted",
+      createdBy: "test user",
+      position: "manager",
+      status: "interview",
+      id: `${Math.random().toString(16).slice(2)}`,
+    };
+
+    before(async function () {
+      user = {
+        name: "matteo",
+        email: Math.random().toString(16).slice(2) + "@test.it",
+        password: "Secret1",
+        roles: ["admin"],
+      };
+
+      await agent.post("/api/auth/signup").send(user);
+      const response = await agent.post("/api/auth/login").send(user);
+      authorization =
+        response.headers["authorization"] ||
+        response.headers["Authorization"] ||
+        "";
+
+      const token = authorization.split(" ")[1];
+      agent.set("Authorization", "bearer " + token);
+      await agent.post("/api/jobs/").send(validJob);
+    });
+
+    it("should get an existing job",async function(){
+      const response = await agent.delete('/api/jobs/'+validJob.id);
+      expect(response.body).to.have.property("error")
+      expect(response.body).to.have.property("deleted")
+      expect(response.body.deleted).to.be.true;
+      expect(response.statusCode).to.equal(200);
+    })
+
+    
+
+  })
+
+
+
+
+
+})
+
+
