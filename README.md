@@ -27,13 +27,12 @@ Check out the course:
    - node-json-db as a dummy db
    - launch.json config for debugging
  
- -Jobs-API (working 🔨)
-  - testing with sinon chai mocha supertest
-  - using zod for runtime validation instead of mongoose schema validation
-  - no mongodb, using a local json-db database
-  - adding swagger documentation ( todo )
-  - added testing rsa keys
-  - added integration tests for login signup and api/jobs/all endpoints post api/jobs, patch api/jobs
-  (only missing getAll and delete)
+ - Jobs-API (working 🔨)
+   - testing with sinon chai mocha supertest
+   - using zod for runtime validation instead of mongoose schema validation
+   - no mongodb, using a local json-db database
+   - adding swagger documentation ( todo )
+   - added testing rsa keys
+   - added integration tests for login signup and api/jobs/all endpoints post api/jobs, patch api/jobs, get api/jobs/:id, delete api/jobs/:id 
   
 
