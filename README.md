@@ -63,7 +63,9 @@ Check out the course:
  
  ![image](https://user-images.githubusercontent.com/75813215/226399688-d6c7071d-32cb-4137-a07b-857f467389fc.png)
 
-
+ - swagger-docs (bonus ⭐ - working 🔨)
+   - started experimenting on the openapi to create docs for my endpoint
+   
 
  
 
