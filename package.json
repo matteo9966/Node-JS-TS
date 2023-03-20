@@ -12,9 +12,10 @@
     "test:store": "mocha ./store-API/tests",
     "start:jwt": "SET NODE_ENV=development&& tsnd --respawn --debug --files ./JWT-basics/app.ts --watch ./JWT-basics/**/.ts",
     "test:jwt": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./JWT-basics/tests/**/*.test.ts --watch-files **/*.test.ts",
-    "initdb:jwt":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&&ts-node JWT-basics/tests/utils/populate-db.ts",
-    "start:jobs":"SET NODE_ENV=testing&& tsnd --respawn --debug --files ./Jobs-api/server.ts --watch ./store-API/**/.ts",
-    "test:jobs":"SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
+    "initdb:jwt": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&&ts-node JWT-basics/tests/utils/populate-db.ts",
+    "start:jobs": "SET NODE_ENV=testing&& tsnd --respawn --debug --files ./Jobs-api/server.ts --watch ./store-API/**/.ts",
+    "test:jobs": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
+    "start:email": "tsnd --respawn --debug --files ./send-email/app.ts --watch ./send-email/**/*.ts",
     "build": "tsc"
   },
   "keywords": [],
@@ -31,6 +32,7 @@
     "@types/mocha": "^10.0.1",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.19",
+    "@types/nodemailer": "^6.4.7",
     "@types/sinon": "^10.0.13",
     "@types/supertest": "^2.0.12",
     "chai": "^4.3.7",
@@ -41,6 +43,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "argon2": "^0.30.3",
     "chai-as-promised": "^7.1.1",
     "express": "^4.18.2",
@@ -49,6 +52,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "node-json-db": "^2.1.4",
+    "nodemailer": "^6.9.1",
     "password-validator": "^5.3.0",
     "sinon": "^15.0.1",
     "zod": "^3.21.4",

@@ -6,6 +6,9 @@ declare global {
         DB_PATH:string;
         DB_PATH_TEST:string;
         JOBS_PORT:number;
+        SENDGRID_API_KEY:string;
+        VERIFIED_SENDER:string;
+        SECRET_EMAIL_PASSWROD:string;
       }
     }
   }
