@@ -16,7 +16,7 @@
     "start:jobs": "SET NODE_ENV=testing&& tsnd --respawn --debug --files ./Jobs-api/server.ts --watch ./store-API/**/.ts",
     "test:jobs": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
     "start:email": "tsnd --respawn --debug --files ./send-email/app.ts --watch ./send-email/**/*.ts",
-    "start:openapi":"tsnd --respawn --debug --files ./swagger-docs/index.ts --watch ./swagger-docs/**/*.ts",
+    "start:openapi": "tsnd --respawn --debug --files ./swagger-docs/index.ts --watch ./swagger-docs/**/*.ts",
     "build": "tsc"
   },
   "keywords": [],
@@ -53,6 +53,7 @@
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "mongodb": "^5.1.0",
     "node-json-db": "^2.1.4",
     "nodemailer": "^6.9.1",
     "password-validator": "^5.3.0",

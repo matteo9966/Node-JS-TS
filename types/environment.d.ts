@@ -9,6 +9,7 @@ declare global {
         SENDGRID_API_KEY:string;
         VERIFIED_SENDER:string;
         SECRET_EMAIL_PASSWROD:string;
+        MONGODB_CONNECTION_STRING:string;
       }
     }
   }

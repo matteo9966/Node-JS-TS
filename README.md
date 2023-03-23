@@ -65,5 +65,59 @@ Check out the course:
 
 
 
+- Authentication (working: uses mongodb)
+    - started using mongodb as a database
+
+```js
+//configuring the database:
+/// validation
+//users validator
+
+db.runCommand({collMod:'users',
+    validator:{
+        $jsonSchema:{
+            bsonType:'object',
+            title:"users schema validation",
+            required:["name","email","password"],
+            description:'name, email and password are required',
+            properties:{
+               name:{
+                 bsonType:"string",
+                 description:"must be of type string and is required",
+                 minLength:3,
+                 maxLength:50
+               },
+               email:{
+                bsonType:"string",
+                description:"must be of type string and is required",
+                pattern:'^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$'
+               
+               },
+               password:{
+                bsonType:"string",
+                description:"must be of type string and is required"
+               },
+               role:{
+                enum:['admin','manager','user'],
+                description:'Valid roles are admin manager or user '
+               },
+               verificationToken:{
+                bsonType:'string',
+               },
+               isVerified:{
+                bsonType:'bool',
+                //cant add a default value
+               },
+               passwordTokenExpirationDate:{
+                bsonType:'date'
+               }
+
+            }
+        }
+    }
+})
+
+```
+
  
 
