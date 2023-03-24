@@ -1,0 +1,34 @@
+use('authenticationDB')
+
+db.createCollection('tokens',{
+validator:{
+   $jsonSchema:{
+    bsonType:'object',
+    description:'the validation schema for the user tokens',
+    title:'token schema',
+    required:['refreshToken','ip','userAgent','user'],
+    properties:{
+        refreshToken:{
+            bsonType:'string',
+            description:'refreshToken property is required'
+        },
+        userAgent:{
+            bsonType:'string',
+            description:'userAgent is required',
+        },
+        isValid:{
+            bsonType:'bool',
+            description:'isValid validity'
+        },
+        user:{
+            bsonType:'objectId',
+            description:'the user for this token'
+        },
+        ip:{
+            bsonType:'string',
+            description:'ip address of the user'
+        }
+    }
+   }
+}
+})

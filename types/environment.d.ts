@@ -10,6 +10,7 @@ declare global {
         VERIFIED_SENDER:string;
         SECRET_EMAIL_PASSWROD:string;
         MONGODB_CONNECTION_STRING:string;
+        AUTHENTICATION_APP_PORT:string;
       }
     }
   }

@@ -69,57 +69,24 @@ Check out the course:
 
 - Authentication (working: uses mongodb)
     - started using mongodb as a database
-
-```js
-//configuring the database:
-/// validation
-//users validator
-
-db.runCommand({collMod:'users',
-    validator:{
-        $jsonSchema:{
-            bsonType:'object',
-            title:"users schema validation",
-            required:["name","email","password"],
-            description:'name, email and password are required',
-            properties:{
-               name:{
-                 bsonType:"string",
-                 description:"must be of type string and is required",
-                 minLength:3,
-                 maxLength:50
-               },
-               email:{
-                bsonType:"string",
-                description:"must be of type string and is required",
-                pattern:'^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$'
-               
-               },
-               password:{
-                bsonType:"string",
-                description:"must be of type string and is required"
-               },
-               role:{
-                enum:['admin','manager','user'],
-                description:'Valid roles are admin manager or user '
-               },
-               verificationToken:{
-                bsonType:'string',
-               },
-               isVerified:{
-                bsonType:'bool',
-                //cant add a default value
-               },
-               passwordTokenExpirationDate:{
-                bsonType:'date'
-               }
-
-            }
-        }
-    }
-})
-
-```
+  
 
  
+
+ ---
+
+creating public and private keys:
+
+openssl genrsa -out private.pem 2048
+openssl rsa -in private.pem -pubout -out public.pem
+
+
+ In MongoDB, a schema defines the structure of a document, while a model provides an interface for interacting with the database.
+
+A schema is a blueprint for the structure of a document. It defines the fields, their data types, and any validation rules for the document. A schema can be defined using the Mongoose library in Node.js. The schema provides a way to validate and enforce the structure of the data being inserted or retrieved from the database.
+
+A model, on the other hand, is a higher-level abstraction that provides an interface for interacting with the database. It is a representation of a collection in MongoDB and is responsible for creating, updating, deleting, and querying documents in the database. A model is created using the schema and provides methods for performing operations on the database.
+
+In summary, a schema defines the structure and validation rules of a document, while a model provides an interface for performing CRUD operations on a collection in MongoDB. The schema is used to create the model, and the model is used to interact with the database.
+
 

@@ -17,7 +17,7 @@
     "test:jobs": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
     "start:email": "tsnd --respawn --debug --files ./send-email/app.ts --watch ./send-email/**/*.ts",
     "start:openapi": "tsnd --respawn --debug --files ./swagger-docs/index.ts --watch ./swagger-docs/**/*.ts",
-    "build": "tsc"
+    "start:auth": "tsnd --respawn --debug --files ./authentication/server.ts --watch ./authentication/**/*.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "@types/app-root-dir": "^0.1.1",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
+    "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.17",
     "@types/http-errors": "^2.0.1",
     "@types/jsonwebtoken": "^9.0.1",
@@ -48,6 +49,7 @@
     "@sendgrid/mail": "^7.7.0",
     "argon2": "^0.30.3",
     "chai-as-promised": "^7.1.1",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
