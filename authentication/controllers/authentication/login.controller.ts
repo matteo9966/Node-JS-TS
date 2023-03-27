@@ -5,7 +5,9 @@ import httpError from "http-errors";
 import { passwordUtils } from "../../utils/password.utils";
 import { UserSignupType } from "../../schemas/user.schema";
 import { setLoginCookies } from "../../utils/setLoginCookies.utils";
-
+import setCookie from "set-cookie-parser";
+import { TokenSchema } from "../../schemas/token.schema";
+import { tokenModel } from "../../mongodb/models/Token.model";
 export const loginController: e.RequestHandler = async function (
   req,
   res,
@@ -27,35 +29,65 @@ export const loginController: e.RequestHandler = async function (
 
   try {
     const user = await userModel.findOne({ email });
-    
+
     if (!user) {
       throw httpError.Unauthorized("wrong email or password");
     }
 
-    const passwordValid = await passwordUtils.verifyPassord(user.password,password);
-    
-    if(!passwordValid){
-        throw httpError.Unauthorized("wrong email or password");
+    const passwordValid = await passwordUtils.verifyPassord(
+      user.password,
+      password
+    );
+
+    if (!passwordValid) {
+      throw httpError.Unauthorized("wrong email or password");
     }
 
-    if(!user?.isVerified){
+    if (!user?.isVerified) {
       //todo add email verification
     }
 
-    await setLoginCookies(res,user); //this add the cookies 
-    responsebody.data=user
-    res.status(200).json(responsebody)
+    const settedCookies = await setLoginCookies(res, user); //this add the cookies
+  
+    if (!settedCookies) {
+      throw new httpError.InternalServerError(
+        "internal server error while authenticating user"
+      );
+    }
+
+
+    const cookieHaders = (res.getHeader("Set-Cookie") as string[]) || [];
+    const parsedCookies = setCookie.parse(cookieHaders);
+    //check for the cookies;
+
+    try {
+      const userAgent = req.headers["user-agent"] || "";
+      const ip = req.ip || "";
+      const isValid = true;
+      const refreshToken =
+        parsedCookies.find((cook) => cook.name === "refreshtoken")?.value || "";
+      const userID = user._id;
+
+      const dbToken: Omit<TokenSchema,'user'> = {
+        userAgent,
+        ip,
+        isValid,
+        refreshToken,
+      };
+
+      await tokenModel.updateOne({ user: userID },{$set:dbToken}, { upsert: true });
+
+    } catch (error) {
+      console.dir(error);
+      throw new httpError.InternalServerError(
+        "internal server error while authenticating user"
+      );
+    }
 
   
 
-    //handle cookies 
-
-  
-
-
-
- 
-
+    responsebody.data = user;
+    res.status(200).json(responsebody);
   } catch (error) {
     responsebody.error = true;
     console.dir(error);

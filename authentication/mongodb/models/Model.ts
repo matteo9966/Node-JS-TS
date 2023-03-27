@@ -1,4 +1,12 @@
-import { Filter, Document, OptionalUnlessRequiredId } from "mongodb";
+import {
+  Filter,
+  Document,
+  OptionalUnlessRequiredId,
+  InsertOneOptions,
+  UpdateOptions,
+  UpdateFilter,
+  DeleteOptions,
+} from "mongodb";
 import { MongoDbConnectionType } from "../connect";
 
 export abstract class Model<T extends Document> {
@@ -22,7 +30,20 @@ export abstract class Model<T extends Document> {
     return this.query().findOne(filter);
   }
 
-  async insertOne(document: OptionalUnlessRequiredId<T>) {
-    return this.query().insertOne(document);
+  async insertOne(
+    document: OptionalUnlessRequiredId<T>,
+    insertOneOptions?: InsertOneOptions
+  ) {
+    return this.query().insertOne(document, { ...insertOneOptions }); //should update with upsert
+  }
+  async updateOne(
+    filter: Filter<Document>,
+    document: Partial<any>,
+    updateOneOptions?: UpdateOptions
+  ) {
+    return this.query().updateOne(filter, document, { ...updateOneOptions });
+  }
+  async deleteOne(filter: Filter<Document>, deleteOptions?: DeleteOptions) {
+    return this.query().deleteOne(filter, { ...deleteOptions });
   }
 }

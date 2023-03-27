@@ -9,4 +9,4 @@ export class TokenModel extends Model<TokenSchema> {
 
 }
 
-export const tokenModel = mongoConnection.createModel('tokens',TokenModel);
+export const tokenModel = mongoConnection.createModel<TokenModel>('tokens',TokenModel);

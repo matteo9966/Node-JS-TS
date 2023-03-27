@@ -12,7 +12,7 @@ export const jwtUtils = {
   async createJWT(
     payload: Record<string, any>,
     signOptions?: jsonwebtoken.SignOptions
-  ) {
+  ):Promise<string|null> {
     return new Promise((resolve, _reject) => {
       jsonwebtoken.sign(
         payload,
@@ -23,7 +23,7 @@ export const jwtUtils = {
             console.dir(error);
             resolve(null);
           } else {
-            resolve(token);
+            resolve(token as string);
           }
         }
       );
