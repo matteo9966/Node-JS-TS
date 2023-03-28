@@ -32,7 +32,7 @@ export async function setLoginCookies(
 
   refToken = await handleRefreshToken(user)
   //can return null 
-  if(!refToken){
+  if(!refToken || !sessionToken){
     return false; //
   }
   
@@ -41,14 +41,14 @@ export async function setLoginCookies(
     httpOnly: true,
     secure: false, 
     signed: false, 
-    expires: new Date(Date.now() + sessioncookieEXP),
+    expires: jwtExpDate(sessionToken)
   });
 
   res.cookie("refreshtoken",refToken,{
     httpOnly: true,
     secure: false, 
     signed: false, 
-    expires: new Date(Date.now() + sessioncookieEXP),
+    expires: jwtExpDate(refToken), //expires when the refresh token expires
     // expires: new Date(Date.now()), //the refresh token is expired
   });
 
@@ -64,7 +64,7 @@ export async function setLoginCookies(
 
 async function handleRefreshToken(
   user: WithId<UserSignupType>
-):Promise<null|string> {
+):Promise<string> {
   //check if user has a refresh token,
   const id = user._id;
   let refToken:string|null = null;
@@ -94,11 +94,26 @@ async function handleRefreshToken(
   }
 
 
-  return refToken
+  return refToken as string 
 
 }
 
 
 async function createRefreshToken(user:WithId<UserSignupType>){
-  return jwtUtils.createJWT(user,{expiresIn:refreshTokenEXP/1000})
+  return jwtUtils.createJWT(user,{expiresIn:refreshTokenEXP.toString()+'ms'}) //use string to convert to ms
 }
+
+function jwtExpDate(jwt: string): Date {
+  try {
+    const res = jwt.split(".")[1];
+    const exp = JSON.parse(atob(res)).exp;
+    const date = new Date(exp * 1000);
+    return date;
+  } catch (error) {
+    return new Date();
+  }
+}
+
+
+export const loginCookiesHelper = {setLoginCookies,createRefreshToken}
+

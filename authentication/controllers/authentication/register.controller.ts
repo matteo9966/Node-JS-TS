@@ -4,6 +4,14 @@ import { APIResponse } from "../../interfaces/response.interface";
 import { userModel } from "../../mongodb/models/User.model";
 import { UserSignupType } from "../../schemas/user.schema";
 import { passwordUtils } from "../../utils/password.utils";
+import { nodemailerSend } from "../../utils/sendEmail.utils";
+import querystring from 'querystring';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const origin = `http://localhost`
+
 export const registerController: e.RequestHandler = async function (
   req,
   res,
@@ -59,6 +67,18 @@ export const registerController: e.RequestHandler = async function (
       responsebody.data = {inserted:true};
       res.status(200)
       res.json(responsebody)
+      //send email without waiting....
+      const htmlBody = createHtmlBody(name,verificationToken,email,insertUser.role||"",origin,process.env.AUTHENTICATION_APP_PORT)
+      try {
+        nodemailerSend({ //dont wait for fulfillment of promise
+           html:htmlBody,
+           subject:'Verify your email',
+           to:email
+        })
+      } catch (error) {
+        console.dir(error);
+      }
+
     }else{
       responsebody.error=true;
       responsebody.message=`user ${email} was not inserted`;
@@ -84,3 +104,24 @@ export const registerController: e.RequestHandler = async function (
   }
 
 };
+
+function createHtmlBody(name:string,verificationToken:string,email:string,role:string,origin:string,port:string){
+  const qstr = querystring.stringify({email,verificationtoken:verificationToken});
+ const href = `${origin}:${port}/auth/verify?${qstr}`
+ // http://localhost:7700/verify?$email=matteoluigitommasi%40gmail.com&verificationtoken=7f94b429778f
+  return `
+  <h1>Hello, ${name}</h1>
+  <p>Thanks for registering to our website</p>
+  <ul>
+  <li>name: ${name.toUpperCase()}</li>
+  <li>role: ${role.toUpperCase()}</li>
+  <li>verification token: ${verificationToken}</li>
+  <br>
+  <p>Click here and verify your email: <a href="${href}">Verify your email</a></p>
+  </ul>        
+  <br>
+  <div>
+   <p>Regards, <a href="#">Matteo</a></p>
+  </div>
+  `
+}

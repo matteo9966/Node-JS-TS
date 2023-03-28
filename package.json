@@ -17,7 +17,8 @@
     "test:jobs": "SET NODE_ENV=testing&&SET DB_PATH_TEST=./db/product-db-test.json&& mocha ./Jobs-api/tests/**/*.test.ts --watch-files **/*.test.ts",
     "start:email": "tsnd --respawn --debug --files ./send-email/app.ts --watch ./send-email/**/*.ts",
     "start:openapi": "tsnd --respawn --debug --files ./swagger-docs/index.ts --watch ./swagger-docs/**/*.ts",
-    "start:auth": "tsnd --respawn --debug --files ./authentication/server.ts --watch ./authentication/**/*.ts"
+    "start:auth": "tsnd --respawn --debug --files ./authentication/server.ts --watch ./authentication/**/*.ts",
+    "test:auth":"mocha ./authentication/**/*.test.ts --watch-files ./authentication/**/*.test.ts"
   },
   "keywords": [],
   "author": "",
