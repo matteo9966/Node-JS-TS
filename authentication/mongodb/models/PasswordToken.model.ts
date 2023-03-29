@@ -13,7 +13,7 @@ export class PasswordTokenModel extends Model<PasswordToken> {
 }
 
 //TODO: Start from here! 
-export const passwordToken = mongoConnection.createModel<PasswordTokenModel>(
+export const passwordTokeModel = mongoConnection.createModel<PasswordTokenModel>(
   "passwordToken",
   PasswordTokenModel
 );

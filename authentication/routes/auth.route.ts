@@ -1,5 +1,6 @@
 import e from "express";
 import { loginController, registerController } from "../controllers/authentication";
+import { forgotPassowrdController } from "../controllers/authentication/forgotPassword.controller";
 import { logoutController } from "../controllers/authentication/logout.controller";
 import { tokenController } from "../controllers/authentication/token.controller";
 import { verifyEmailController } from "../controllers/authentication/verifyEmail.controller";
@@ -11,5 +12,7 @@ router.route('/login').post(loginController)
 router.route('/logout').delete(authenticationMiddleware,logoutController)
 router.route('/token').get(authenticationMiddleware,tokenController)
 router.route('/verify').get(verifyEmailController);
+router.route('/forgot-password').post(forgotPassowrdController)
+router.route('/reset-password')
 
 export {router as authRouter}
