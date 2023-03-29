@@ -14,11 +14,15 @@ Check out the course:
   - added mocha tests for the controllers
   - use typescript
   - used node-json-db instead of MongoDB
+  
+  ---
  
  - store-API (completed ✔️)
    - using zod for runtime schema validation
    - mocha sinon and chai for testing
    - node-json-db as a dummy db
+   
+   ---
    
 - JWT Basics (completed  ✔️)
    - using zod for runtime schema validation
@@ -26,6 +30,8 @@ Check out the course:
    - added a integration test for the /user/dashboard route
    - node-json-db as a dummy db
    - launch.json config for debugging
+  
+  ---
  
  - Jobs-API (completed ✔️)
    - testing with sinon chai mocha supertest
@@ -34,6 +40,8 @@ Check out the course:
    - adding swagger documentation ( todo )
    - added testing rsa keys
    - added integration tests for login signup and api/jobs/all endpoints post api/jobs, patch api/jobs, get api/jobs/:id, delete api/jobs/:id 
+   
+   ---
   
   - Send email (completed ✔️)
     - used ethereal for configuring and recieving emails
@@ -62,17 +70,35 @@ Check out the course:
  go to gmail settings -> look for app password -> and add to others a password for nodemailer:
  
  ![image](https://user-images.githubusercontent.com/75813215/226399688-d6c7071d-32cb-4137-a07b-857f467389fc.png)
+ 
+ ---
 
  - swagger-docs (bonus ⭐ - working 🔨)
    - started experimenting on the openapi to create docs for my endpoint
    
+   
+ ---
+   
 
-- Authentication (working: uses mongodb)
+- Authentication (working 🔨)
     - started using mongodb as a database
+    - added only two - will add others soon
+    - you have to sign in with a valid email and verify the email using a verification token (to be able to sign in);
+    - logging in without verifying the email will result in a 401 error
+    todo: add changepassword, resetpassword, forgotpassword ()
+    
   
 
  
 
+ ---
+ 
+ ---
+ 
+ ---
+ 
+ ---
+ 
  ---
 
 creating public and private keys:
