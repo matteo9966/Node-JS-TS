@@ -80,12 +80,34 @@ Check out the course:
  ---
    
 
-- Authentication (working 🔨)
+- Authentication (completed ✔️)
     - started using mongodb as a database
     - added only two - will add others soon
     - you have to sign in with a valid email and verify the email using a verification token (to be able to sign in);
     - logging in without verifying the email will result in a 401 error
-    todo: add changepassword, resetpassword, forgotpassword ()
+    - added reset password functionality:
+       - I added a basic submit form that sends a post request to /auth/reset-password with the token, the email and the password. 
+       - the token has a ttl of 10 minutes - 
+       if the password is correctly updated i recieve a 200 with this kind of body:
+       
+       ```json
+       {
+        "error":false,
+         "data":{"acknowledged":true,
+                 "modifiedCount":1,
+                 "upsertedId":null,
+                 "upsertedCount":0,
+                 "matchedCount":1
+                }
+       } 
+       ```
+       
+    This is the basic submit form:
+
+    ![image](https://user-images.githubusercontent.com/75813215/228760346-d165df65-f614-4922-b632-921b8ef88f91.png)
+
+    
+    
     
   
 
