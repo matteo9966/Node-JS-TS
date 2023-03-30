@@ -9,8 +9,8 @@ export const resetPasswordController: {
   (...args: Parameters<e.RequestHandler>): Promise<void>;
 } = async function (req, res, next) {
   const responsebody: APIResponse<any> = { error: false };
-  const { email, token } = req.query;
-  const { password } = req.body; // the new password;
+  // const { email, token } = req.query;
+  const { password,email, token } = req.body; // the new password;
   try {
     if (!email || !token || !password) {
       throw createHttpError.BadRequest(
@@ -77,8 +77,26 @@ export const resetPasswordController: {
 export const resetPasswordFormController: {
   (...args: Parameters<e.RequestHandler>): Promise<void>;
 } = async function (req, res, next) {
-    
+
+   //can check if the request has queryparams
+
+   const queryparams = req.query;
+
+   const {token,email} = queryparams;
+
+   if(!token || !email){
+    res.status(400)
+    res.json({
+      error:true,
+      message:'invalid request, missing token and email'
+    })
+    return 
+  }
+
+     
+        
     //now i have to send the token with the form, but how?
+    res.status(200);
     res.sendFile(path.join(__dirname,'../../forms/reset-password.html'));
 
   //send a form that posts a request with the new email and password
