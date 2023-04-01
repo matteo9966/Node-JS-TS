@@ -1,12 +1,15 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "API Title",
+    "title": "First swagger docs",
     "version": "1.0",
-    "description": "this is my first experiment using the swagger docs"  
-},
+    "description": "this is my first experiment using the swagger docs"
+  },
   "servers": [
-    { "url": "https://api.server.test/v1" },
+    {
+      "url": "https://api.server.test/v1",
+      "description": "the testing server"
+    },
     {
       "url": "http://localhost:7000",
       "description": "the local environment server"
@@ -25,15 +28,104 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                   "items":{
-                    "type":"string"
-                   }
+                  "items": {
+                    "type": "string"
+                  }
                 }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+       "description": "insert a new user",
+       "parameters": [{
+        "name": "userid",
+        "in": "query",
+        "required": true,
+        "description": "the post request to a user",
+        "schema":{
+          "type": "string",
+          "format": "string",
+          "minimum": 1
+        }
+       }],
+       "responses": {
+        "200":{
+          "description": "ok",
+          "content": {
+            "application/json":{
+              "schema":{
+                "type": "object",
+                 "properties": {
+                   "userId":{
+                    "type": "string",
+                    "description": "the user id created by the database"
+                   },
+                   "status":{
+                    "type": "boolean"
+                   }
+                 }
+              }
+            }
+          }
+        }
+       }
+      }
+    },
+    "/user":{
+      "post":{
+        "deprecated": false,
+        "description": "this gives you a specific user",
+        "requestBody":{
+          "required": true,
+          "content": {
+            "application/json":{
+              "schema":{
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200":{
+            "description": "the successful response when everithing goes ok",
+            "content": {
+              "application/json":{
+                "schema":{
+
+                }
+
               }
             }
           }
         }
       }
     }
-  }
+  },
+ "components":{
+   "schemas": {
+     "user":{
+       "type": "object",
+       "properties": {
+         "id":{
+          "type": "string",
+           "example":"matteo-tommasi-is-the-one"
+         },
+         "name":{
+          "type": "string",
+          "example":"marco rosso"
+         }
+       },
+       "required": ["id","name"]
+     },
+     "userresponse":{
+      "type": "object",
+       "properties":{
+         
+       }
+     }
+   }
+ }
+
 }

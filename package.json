@@ -18,7 +18,8 @@
     "start:email": "tsnd --respawn --debug --files ./send-email/app.ts --watch ./send-email/**/*.ts",
     "start:openapi": "tsnd --respawn --debug --files ./swagger-docs/index.ts --watch ./swagger-docs/**/*.ts",
     "start:auth": "tsnd --respawn --debug --files ./authentication/server.ts --watch ./authentication/**/*.ts",
-    "test:auth":"mocha ./authentication/**/*.test.ts --watch-files ./authentication/**/*.test.ts"
+    "test:auth": "mocha ./authentication/**/*.test.ts --watch-files ./authentication/**/*.test.ts",
+    "start:upload": "tsnd --respawn --debug --files ./file-upload/server.ts --watch ./file-upload/**/*.ts"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "@types/chai-as-promised": "^7.1.5",
     "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.17",
+    "@types/express-fileupload": "^1.4.1",
     "@types/http-errors": "^2.0.1",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/lodash": "^4.14.191",
@@ -51,8 +53,10 @@
     "@types/set-cookie-parser": "^2.4.2",
     "argon2": "^0.30.3",
     "chai-as-promised": "^7.1.1",
+    "cloudinary": "^1.35.0",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",

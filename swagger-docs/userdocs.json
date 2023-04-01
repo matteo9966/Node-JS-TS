@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Basic user Docs",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:6600",
+      "description": "the local environment server for development"
+    }
+  ],
+  "paths": {
+    "/user/{id}": {
+      "get": {
+        "description": "get a user passing a id to the search params",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the user id",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+            "200":{
+                "description": "successful response from the server",
+                 "content": {
+                    "application/json":{
+                        "schema":{
+                            "$ref": "#/components/schemas/user200response"
+                        
+                        }
+                    }
+                 }
+
+            },
+            "400":{
+               "description": "the bad request when user tries to get user without ",
+               "content": {
+                "application/json":{
+                    "schema":{
+                        "$ref": "#/components/schemas/user400response"
+                    }
+                }
+               }
+
+            }
+        }
+      }
+    },
+    "/user":{
+      "$ref": ""
+    }
+  },
+
+  "components": {
+    "schemas": {
+        "user200response":{
+            "type": "object",
+            "required": ["error"],
+            "properties": {
+                "error":{
+                     "type": "boolean"
+                },
+                "data":{
+                    "type":"object",
+                    "properties": {
+                        "name":{
+                            "type": "string"
+                        },
+                        "age":{
+                            "type": "number"
+                        },
+                        "id":{
+                            "type": "string"
+                        },
+                        "email":{
+                            "type": "string"
+                        }
+                    }
+
+                }
+            },
+            "example":{
+                "error":"false",
+                "data":{
+                    "id":"use1",
+                    "name":"mark",
+                    "age":12,
+                    "email":"a@b.t"
+                  }
+            }
+        },
+        "user400response":{
+            "type": "object",
+            "required": ["error"],
+            "properties": {
+                "error":{
+                     "type": "boolean"
+                },
+                "message":{
+                    "type":"string",
+                    "description": "the error response message"
+                }
+               
+            }
+        }
+        
+    }
+
+  }
+}

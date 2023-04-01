@@ -11,6 +11,10 @@ declare global {
         SECRET_EMAIL_PASSWROD:string;
         MONGODB_CONNECTION_STRING:string;
         AUTHENTICATION_APP_PORT:string;
+        FILE_UPLOAD_PORT:number;
+        CLOUDINARY_CLOUD_NAME:string;
+        CLOUDINARY_API_KEY:string;
+        CLOUDINARY_API_SECRET:string;
       }
     }
   }
